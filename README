@@ -1,0 +1,129 @@
+File: README
+Author: Amanda Rawls
+Date: 4/21/2017
+Project: Othello/Minimax
+Class: CS4300
+Professor: Dr. Mark Hauschild
+
+DESCRIPTION
+-----------
+This project implements a game of Othello, and allows the user
+to play against the computer which utilizes a Minimax algorithm.
+Extra Credit: The user can play against a computer which utilizes 
+Alpha-Beta Pruning algorithm.
+
+COMPILATION NOTE
+----------------
+The files of this program are in a package called p3. If compiling on the
+command line, enter the directory p3 and run "javac *". Exit the directory by
+one level, then to execute the program, run "java p3.Adversarial". 
+Be careful of capitalization!
+
+This program has been tested on on Hoare.
+Version control has been implemented with git to a local repository.
+
+FILE CONTENTS
+-------------
+Adversarial (Class)
+	main(String[]) : void
+		intializes Othello
+		while game() returns true, call game()
+	gameOn(Othello, Minimax) : boolean
+		display board
+		determine player, call userTurn or minimax
+	userTurn(Othello)
+		ask player for move
+		call Othello.place
+
+Othello (Class)
+	List<List<Character> board
+	int dim	 (dimensions, default 6)
+	List<Character> players
+	static char black (unicode for black player symbol)
+	static char white (unicode for white player symbol)
+	static char valid (unicode for the valid move symbol)
+	static char empty (unicode for the empty space symbol)
+	int numBlack 
+	int numWhite
+	char player (player's choice)
+	char current (current player)
+	List<List<Integer> flips
+	boolean showMoves
+	
+	Othello
+		public constructor
+		creates the board with the initial starting positions
+	Othello
+		public copy constructor
+		meant only to be called by Minimax
+	display
+		shows the current board with numbers along the x and y axes 
+	valid(int, int): boolean
+		given the current player and the current board state, determine
+		the validity of the move
+	validMoves() : List<List<Integer>
+		return the list of valid locations on the board for the current player
+	toggleMoves(List<List<Integer>>)
+		toggle the valid move symbol at all locations in the given list
+	place(int, int)
+		place a piece representing the current player on the board at 
+		the location given by the two ints
+	setFlips(int, int, int, int) : boolean
+		private function
+		given the chosen position on the board and a position adjacent to
+		it, return true the move is valid and add board positions to be 
+		flipped to flips
+	flipPieces
+		private function
+		flip the pieces that were marked by setFlips
+	endGame : boolean
+		given the current state of the board, returns the endGame status
+	nextPlayer
+		update current player
+	setPlayer
+	setCurrent
+	getWinner : char
+		returns the char representing the winning player
+	getDim : int
+	getPlayer : char
+	getBoard : List<List<Character>>
+		return board
+	setBoard (List<List<Character>>
+		deep copy given board
+	getNumBlack : int
+	setNumBlack(int)
+	getNumWhite : int
+	setNumWhite(int)
+	
+Minimax (Class)
+	Double posinfinity
+	Double neginfinity
+	int depth
+	int maxDepth
+	int sec (the amount of time minimax has to search. default: 5)
+	long timeTrigger
+	
+	decision(Othello) : action
+		return the action that maximizes utility
+	MaxValue(Othello) : Double 
+		if game is in end state, return utility
+		return the maximum utility of all possible actions
+	MinValue(Othello) : Double
+		if game is in end state, return utility
+		return the minimum utility of all possible actions
+	utility(Othello) : Integer
+		given a game, returns the value determined by the 
+		heuristic (see description below)
+	result(Othello, List<Integer>) : void
+		given a copy of the current game,
+		perform the given action on the copy
+
+Heuristic used in utility():
+	The number of the current player's pieces minus 
+	the number of the opponent player's pieces. 
+	This number will be positive if the current player is
+	winning, 0 if the two players are tied, and a negative
+	number if the current player is losing. The larger the 
+	positive number the stronger the state, the smaller
+	the positive number the weaker the state.
+		
