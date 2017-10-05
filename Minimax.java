@@ -1,5 +1,3 @@
-package p3;
-
 import java.util.Calendar;
 import java.util.List;
 
